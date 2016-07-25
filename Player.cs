@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Player : MovingObject {
 
@@ -7,7 +8,7 @@ public class Player : MovingObject {
 	public int pointsPerFood = 10;
 	public int pointsPerSoda = 20;
 	public int wallDamage = 1;
-
+	public Text foodText;
 
 	private Animator animator;
 	private int food;
@@ -17,7 +18,8 @@ public class Player : MovingObject {
 		animator = GetComponent<Animator> ();
 
 		food = GameManger.instance.playerFoodPoints;
-		base.Start ();
+		foodText.text = "Food: " + food;
+  		base.Start ();  //mm
 	}
 
 	private void OnDisable(){
@@ -50,14 +52,15 @@ public class Player : MovingObject {
 	{
 		food--;
 
+		foodText.text = "Food: " + food;
 		base.AttemptMove<T> (xDir, yDir);
 
 		RaycastHit2D hit;
 
-		if (Move (xDir, yDir, out hit)) {
-			//ca;; sfx
-		
-		}
+//		if (Move (xDir, yDir, out hit)) {
+//			//ca;; sfx
+//		
+//		}
 		CheckIfGameOver ();
 
 		GameManger.instance.playersTurn = false;
